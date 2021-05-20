@@ -10,9 +10,9 @@ interface DotSync {
 
 export function useDotSync(
   el: Ref<HTMLElement | undefined | null>,
-  host: string
+  syncServerUrl: string
 ): { send: (sync: DotSync) => void } {
-  const _socket = io(host)
+  const _socket = io(syncServerUrl)
   _socket.on('connect', () => {
     console.debug('Connected to the sync server')
   })

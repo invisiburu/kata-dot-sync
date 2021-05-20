@@ -13,7 +13,8 @@ export default defineComponent({
   setup() {
     const dotEl = ref<HTMLElement>()
 
-    const { send } = useDotSync(dotEl, 'http://127.0.0.1:3000')
+    const syncServerUrl = process.env.VUE_APP_SYNC_SERVER_URL
+    const { send } = useDotSync(dotEl, syncServerUrl)
     useDotMover(dotEl, (x, y) => send({ x, y }))
 
     return { dotEl }

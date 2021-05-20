@@ -16,10 +16,14 @@ const sockets = {
   /** @type {DotSync} */
   _prevSync: null,
 
-  init(server) {
+  /**
+   * @param {import('http').Server} server
+   * @param {string} origin
+   */
+  init(server, origin) {
     this._io = new socketIO.Server(server, {
       cors: {
-        origin: 'http://localhost:8081',
+        origin: origin,
         methods: 'GET',
       },
     })
