@@ -1,16 +1,21 @@
 import { Ref } from '@vue/reactivity'
 import { useEvent } from '@/composables/useEvent'
+import { moveElementTo } from '@/helpers/moveElementTo'
+import { getEventCoords } from '@/helpers/getEventCoords'
 
-export function useDotMover(el: Ref<HTMLElement | undefined | null>): void {
+export function useDotMover(
+  el: Ref<HTMLElement | undefined | null>,
+  onMove: (x: number, y: number) => void
+): void {
   let _isMoving = false
   const _onMoveStart = () => {
     _isMoving = true
   }
   const _onMove = (event: Event) => {
     if (!_isMoving) return
-    const [x, y] = _getEventCoords(event as MouseEvent | TouchEvent)
-    el.value && (el.value.style.left = `${x}px`)
-    el.value && (el.value.style.top = `${y}px`)
+    const [x, y] = getEventCoords(event as MouseEvent | TouchEvent)
+    moveElementTo(el.value, x, y)
+    onMove(x, y)
   }
   const _onMoveEnd = () => {
     _isMoving = false
@@ -22,10 +27,6 @@ export function useDotMover(el: Ref<HTMLElement | undefined | null>): void {
   useEvent(el, 'touchstart', _onMoveStart)
   useEvent(document, 'touchmove', _onMove)
   useEvent(document, 'touchend', _onMoveEnd)
-}
 
-function _getEventCoords(event: MouseEvent | TouchEvent) {
-  return 'clientX' in event
-    ? [event.clientX, event.clientY]
-    : [event.targetTouches[0].clientX, event.targetTouches[0].clientY]
+  return
 }

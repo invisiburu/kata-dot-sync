@@ -7,12 +7,14 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { useDotMover } from '@/composables/useDotMover'
+import { useDotSync } from '@/composables/useDotSync'
 
 export default defineComponent({
   setup() {
     const dotEl = ref<HTMLElement>()
 
-    useDotMover(dotEl)
+    const { send } = useDotSync(dotEl, 'http://127.0.0.1:3000')
+    useDotMover(dotEl, (x, y) => send({ x, y }))
 
     return { dotEl }
   },

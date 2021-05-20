@@ -1,4 +1,4 @@
-# kata-socket-sync
+# kata-dot-sync
 
 ## Project setup
 ```
