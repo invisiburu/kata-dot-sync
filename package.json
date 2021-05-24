@@ -6,8 +6,8 @@
     "serve": "vue-cli-service serve",
     "start:local": "PORT=3000 node ./server/server.js",
     "start": "node ./server/server.js",
-    "build": "vue-cli-service build --mode=development",
-    "build:prod": "vue-cli-service build --mode=production",
+    "build": "vue-cli-service build",
+    "build:local": "vue-cli-service build --mode=development",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
